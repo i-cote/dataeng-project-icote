@@ -4,23 +4,21 @@
 
 Project [DATA Engineering](https://www.riccardotommasini.com/courses/dataeng-insa-ot/) is provided by [INSA Lyon](https://www.insa-lyon.fr/).
 
-Students: **[To be assigned]**
+Students: Irvin Cote, Marta Toca
 
-### Abstract
+## Abstract
+
+The goal of the present project is to create a data-engineering pipeline to investigate the influx of remote workers from expensive towards less expensive cities  and the influence it had on the housing costs of the latter.
+We focus on the cities of Paris and Lyon to conduct the study.
 
 ## Datasets Description 
 
+- Scrapping https://sncf.com to get info on demand for Paris Lyon TGV commute 
+- Getting municipal data to track the rent prices in Lyon
+- Scrapping https://indeed.com to track the evolution of remote offers in France
+
 ## Queries 
 
-## Requirements
-
-## Note for Students
-
-* Clone the created repository offline;
-* Add your name and surname into the Readme file and your teammates as collaborators
-* Complete the field above after project is approved
-* Make any changes to your repository according to the specific assignment;
-* Ensure code reproducibility and instructions on how to replicate the results;
-* Add an open-source license, e.g., Apache 2.0;
-* README is automatically converted into pdf
-
+- What is the evolution of the number of remote job offers in France every year from 2019 to 2024?
+- What is the evolution of rent prices in Lyon from 2019 to 2024?
+- What is the evolution of Lyon-Paris TGV commute from 2019 to 2024?
