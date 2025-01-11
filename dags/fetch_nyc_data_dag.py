@@ -64,7 +64,7 @@ def fetch_csv_file():
 def derive_geoid():
     # Load arrest data
     try:
-        with open('/tmp/nyc_arrest_data.json', 'r') as f:
+        with open('/tmp/nyc_arrest_coordinates_validated.json', 'r') as f:
             arrest_data = json.load(f)
     except Exception as e:
         print(f"Error loading arrest data: {e}")
@@ -115,6 +115,48 @@ def derive_geoid():
         print(f"Error saving updated arrest data: {e}")
 
 
+# Define the script to validate coordinates within NYC boundaries
+def validate_coordinates():
+    # NYC bounding box (approximate)
+    NYC_BOUNDS = {
+        "min_lat": 40.4774,
+        "max_lat": 40.9176,
+        "min_lon": -74.2591,
+        "max_lon": -73.7004
+    }
+
+    try:
+        # Load arrest data with GEOIDs
+        with open('/tmp/nyc_arrest_data.json', 'r') as f:
+            arrest_data = json.load(f)
+
+        validated_data = []
+
+        for record in arrest_data:
+            lat = record.get("latitude")
+            lon = record.get("longitude")
+
+            if lat and lon:
+                lat, lon = float(lat), float(lon)
+                if (NYC_BOUNDS["min_lat"] <= lat <= NYC_BOUNDS["max_lat"] and
+                        NYC_BOUNDS["min_lon"] <= lon <= NYC_BOUNDS["max_lon"]):
+                    record["within_nyc"] = True
+                else:
+                    record["within_nyc"] = False
+            else:
+                record["within_nyc"] = False
+
+            validated_data.append(record)
+
+        # Save validated data
+        with open('/tmp/nyc_arrest_coordinates_validated.json', 'w') as f:
+            json.dump(validated_data, f)
+        print("Arrest data validated for NYC boundaries and saved.")
+
+    except Exception as e:
+        print(f"Error during validation: {e}")
+
+
 # Define the Airflow DAG
 default_args = {
     'owner': 'airflow',
@@ -152,5 +194,12 @@ derive_geoid_task = PythonOperator(
     dag=dag
 )
 
+validate_coordinates_task = PythonOperator(
+    task_id='validate_coordinates',
+    python_callable=validate_coordinates,
+    dag=dag
+)
+
+
 # Set task dependencies
-fetch_data_task >> derive_geoid_task >> fetch_csv_task
+fetch_data_task >> validate_coordinates_task >> derive_geoid_task >> fetch_csv_task
