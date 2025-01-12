@@ -28,9 +28,26 @@ def remove_useless_columns_and_rename():
             entry.clear()
             entry.update(new_entry)
 
-        # Write the filtered and renamed data to the output file
+        # Process each entry in the data
+        cleaned_data = []
+        for entry in data:
+            cleaned_entry = {}
+            for key, value in entry.items():
+                # Remove fields with "Percent" in the name or fields in the fields_to_remove set
+                if "Percent" in key:
+                    continue
+
+                # Transform the key: remove commas, replace spaces with underscores, and make lowercase
+                new_key = key.replace(",", "").replace(" ", "_").lower()
+                if "_number" in new_key:
+                    new_key = new_key.split("_number")[0]
+                cleaned_entry[new_key] = value
+
+            cleaned_data.append(cleaned_entry)
+
+        # Write the cleaned data to the output file
         with open(output_file, 'w') as file:
-            json.dump(data, file, indent=2)
+            json.dump(cleaned_data, file, indent=2)
 
     except FileNotFoundError:
         print(f"Error: The file {input_file} was not found.")
