@@ -6,7 +6,7 @@ import json
 import pandas as pd
 
 # Define the script for fetching JSON data
-def fetch_and_log_nyc_data():
+def fetch_arrest_data_from_api():
     # API endpoint and parameters
     API_ENDPOINT = "https://data.cityofnewyork.us/resource/8h9b-rp9u.json?$limit=5"
     API_TOKEN = "iAn5FiC7n6AnwsEyG8JNn9fYt"  # Replace with your API token if required
@@ -39,7 +39,7 @@ def fetch_and_log_nyc_data():
         print(f"An error occurred: {e}")
 
 # Define the script for downloading the CSV file
-def fetch_csv_file():
+def fetch_pop_facts_xlsx_file():
     # Define the URL and output path
     URL = "https://www.nyc.gov/assets/planning/download/office/planning-level/nyc-population/census2020/nyc_detailed-race-and-ethnicity-data_2020_core-geographies.xlsx"
 
@@ -199,15 +199,15 @@ dag = DAG(
 )
 
 # Define the PythonOperators
-fetch_data_task = PythonOperator(
-    task_id='fetch_and_log_nyc_data',
-    python_callable=fetch_and_log_nyc_data,
+fetch_arrest_data_from_api_task = PythonOperator(
+    task_id='fetch_arrest_data_from_api',
+    python_callable=fetch_arrest_data_from_api,
     dag=dag
 )
 
-fetch_csv_task = PythonOperator(
-    task_id='fetch_csv_file',
-    python_callable=fetch_csv_file,
+fetch_pop_facts_xlsx_file_task = PythonOperator(
+    task_id='fetch_pop_facts_xlsx_file',
+    python_callable=fetch_pop_facts_xlsx_file,
     dag=dag
 )
 
@@ -231,5 +231,5 @@ validate_coordinates_task = PythonOperator(
 
 
 # Set task dependencies
-fetch_data_task >> validate_coordinates_task >> derive_geoid_task 
-fetch_csv_task >> convert_xlsx_to_json_task
+fetch_arrest_data_from_api_task >> validate_coordinates_task >> derive_geoid_task 
+fetch_pop_facts_xlsx_file_task >> convert_xlsx_to_json_task
