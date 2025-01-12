@@ -8,6 +8,7 @@ from tasks.fetch_pop_facts_xlsx_file_task import fetch_pop_facts_xlsx_file
 from tasks.derive_geoid_task import derive_geoid
 from tasks.validate_coordinates_task import validate_coordinates
 from tasks.remove_entries_with_minTotalPop_task import remove_entries_with_minTotalPop
+from tasks.remove_entries_with_wrong_geoType_task import remove_entries_with_wrong_geoType
 
 
 default_args = {
@@ -51,6 +52,12 @@ remove_entries_with_minTotalPop_task = PythonOperator(
     dag=dag
 )
 
+remove_entries_with_wrong_geoType_task = PythonOperator(
+    task_id='remove_entries_with_wrong_geoType',
+    python_callable=remove_entries_with_wrong_geoType,
+    dag=dag
+)
+
 validate_coordinates_task = PythonOperator(
     task_id='validate_coordinates',
     python_callable=validate_coordinates,
@@ -64,4 +71,4 @@ derive_geoid_task = PythonOperator(
 )
 
 fetch_arrest_data_from_api_task >> validate_coordinates_task >> derive_geoid_task 
-fetch_pop_facts_xlsx_file_task >> convert_xlsx_to_json_task >> remove_entries_with_minTotalPop_task
+fetch_pop_facts_xlsx_file_task >> convert_xlsx_to_json_task >> remove_entries_with_minTotalPop_task >> remove_entries_with_wrong_geoType_task
