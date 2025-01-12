@@ -285,5 +285,18 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  app-db:
+    image: postgres:latest
+    container_name: app-db
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppassword
+      POSTGRES_DB: appdb
+    ports:
+      - "5433:5432"  # Map to a different host port to avoid conflicts
+    volumes:
+      - app-db-data:/var/lib/postgresql/data
+
 volumes:
   postgres-db-volume:
+  app-db-data:
