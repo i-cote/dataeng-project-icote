@@ -4,7 +4,7 @@ import requests
 # Define the script for fetching JSON data
 def fetch_arrest_data_from_api():
     # API endpoint and parameters
-    API_ENDPOINT = "https://data.cityofnewyork.us/resource/8h9b-rp9u.json?$limit=5"
+    API_ENDPOINT = "https://data.cityofnewyork.us/resource/8h9b-rp9u.json?$limit=1000"
     API_TOKEN = "iAn5FiC7n6AnwsEyG8JNn9fYt"  # Replace with your API token if required
 
     # Headers for API request (include your token if necessary)
