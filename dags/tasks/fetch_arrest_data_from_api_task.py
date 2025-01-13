@@ -33,5 +33,5 @@ def fetch_arrest_data_from_api():
             print(f"Error: API call {i+1} failed with status code {response.status_code}")
 
     # Write aggregated data to a JSON file
-    with open('/opt/airflow/config/nyc_arrest_data.json', 'w') as file:
+    with open('/tmp/nyc_arrest_data.json', 'w') as file:
         json.dump(aggregated_data, file, indent=4)
