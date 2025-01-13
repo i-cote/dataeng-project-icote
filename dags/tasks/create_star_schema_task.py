@@ -22,7 +22,7 @@ def create_star_schema():
             geoid VARCHAR(20) NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS ethnicity_data (
+        CREATE TABLE IF NOT EXISTS geography_of_ethnicity (
             borough VARCHAR(255) NOT NULL,
             geoid VARCHAR(20) NOT NULL,
             ethnicity_total_population INT NOT NULL,

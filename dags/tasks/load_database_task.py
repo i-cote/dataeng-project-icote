@@ -12,8 +12,8 @@ def load_database(**kwargs):
     # Connect to the database
     engine = sqlalchemy.create_engine(DATABASE_URL)
     
-    ethnicity_data = pd.read_json(ethnicity_file_path)
-    ethnicity_data.to_sql("ethnicity_data", engine, if_exists="replace", index=False)
+    geography_of_ethnicity = pd.read_json(ethnicity_file_path)
+    geography_of_ethnicity.to_sql("geography_of_ethnicity", engine, if_exists="replace", index=False)
 
     arrest_data = pd.read_json(arrest_file_path)
 
