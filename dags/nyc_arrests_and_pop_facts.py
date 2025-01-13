@@ -15,7 +15,7 @@ from tasks.load_database_task import load_database
 from tasks.remove_unwanted_fields_from_arrest_data_task import remove_unwanted_fields_from_arrest_data
 
 
-is_offline = True
+is_offline = False
 
 default_args = {
     'owner': 'airflow',
