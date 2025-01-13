@@ -25,13 +25,7 @@ def validate_coordinates():
                 lat, lon = float(lat), float(lon)
                 if (NYC_BOUNDS["min_lat"] <= lat <= NYC_BOUNDS["max_lat"] and
                         NYC_BOUNDS["min_lon"] <= lon <= NYC_BOUNDS["max_lon"]):
-                    record["within_nyc"] = True
-                else:
-                    record["within_nyc"] = False
-            else:
-                record["within_nyc"] = False
-
-            validated_data.append(record)
+                    validated_data.append(record)
 
         # Save validated data
         with open('/tmp/nyc_arrest_coordinates_validated.json', 'w') as f:
