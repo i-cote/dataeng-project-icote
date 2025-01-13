@@ -7,7 +7,7 @@ import shutil
 def fetch_arrest_data_from_api(is_offline):
 
     if is_offline:
-        shutil.copy('/custom_volume/nyc_arrest_data.json','/tmp/nyc_arrest_data.json')
+        shutil.copy('/offline_data/nyc_arrest_data.json','/tmp/nyc_arrest_data.json')
         return
 
     # API endpoint and parameters
