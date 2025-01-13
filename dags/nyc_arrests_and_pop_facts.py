@@ -15,6 +15,8 @@ from tasks.load_database_task import load_database
 from tasks.remove_unwanted_fields_from_arrest_data_task import remove_unwanted_fields_from_arrest_data
 
 
+is_offline = True
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -35,12 +37,14 @@ dag = DAG(
 fetch_arrest_data_from_api_task = PythonOperator(
     task_id='fetch_arrest_data_from_api',
     python_callable=fetch_arrest_data_from_api,
+    op_args=[is_offline],
     dag=dag
 )
 
 fetch_pop_facts_xlsx_file_task = PythonOperator(
     task_id='fetch_pop_facts_xlsx_file',
     python_callable=fetch_pop_facts_xlsx_file,
+    op_args=[is_offline],
     dag=dag
 )
 

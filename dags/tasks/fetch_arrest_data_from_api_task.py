@@ -1,8 +1,15 @@
 import json
 import requests
 
+import shutil
+
 # Define the script for fetching JSON data
-def fetch_arrest_data_from_api():
+def fetch_arrest_data_from_api(is_offline):
+
+    if is_offline:
+        shutil.copy('/custom_volume/nyc_arrest_data.json','/tmp/nyc_arrest_data.json')
+        return
+
     # API endpoint and parameters
     API_ENDPOINT = "https://data.cityofnewyork.us/resource/8h9b-rp9u.json"
     API_TOKEN = "iAn5FiC7n6AnwsEyG8JNn9fYt"  # Replace with your API token if required
