@@ -22,17 +22,7 @@ def create_star_schema():
             geoid VARCHAR(20) NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS date (
-            date_key DATE PRIMARY KEY,
-            year INT,
-            month INT,
-            day INT,
-            weekday VARCHAR(15),
-            quarter INT
-        );
-
-
-        CREATE TABLE ethnicity_data (
+        CREATE TABLE IF NOT EXISTS ethnicity_data (
             borough VARCHAR(255) NOT NULL,
             geoid VARCHAR(20) NOT NULL,
             ethnicity_total_population INT NOT NULL,
