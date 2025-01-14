@@ -55,7 +55,7 @@ The primary goal of this project is to construct a star schema data warehouse to
 
 ## Data Pipeline
 
-![Data pipeline image] (./images/dataeng_pipeline.png)
+![Data pipeline image] (images/dataeng_pipeline.png)
 
 The pipeline is divided into three key stages: ingestion, staging, and production.
 
