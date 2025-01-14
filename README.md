@@ -12,6 +12,27 @@ This project focuses on building a data pipeline to analyze the relationship bet
 
 ---
 
+## How to setup the project
+
+To get the project up and running execute the two following commands
+
+```
+docker build -t airflow-image-toca-cote:latest .
+docker compose up
+
+```
+
+---
+
+## Online/Offline switch
+
+To project has a switch to allow for offline execution.
+This switch is a boolean variable named 'is_offline' and is located in the file nyc_arrests_and_pop_facts.py
+
+If the variable is set to False, the data fetching tasks will fetch the data from the internet, while if it is set to True the tasks will use backup data stored in the repository under the directory named 'offline data'.
+
+---
+
 ## Project Description
 
 Arrest records in NYC provide valuable insights into law enforcement trends, but they lack contextual demographic data, which is critical for deeper analysis. This project bridges the gap by combining arrest records with census tract-level demographic data, enabling analyses such as the distribution of arrests across different demographic groups and the temporal evolution of arrests in specific areas.
